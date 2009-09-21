@@ -11,6 +11,11 @@ describe ShareLayoutsExtension do
     ActionController::Base.should respond_to(:radiant_layout)
     ActionController::Base.new.should respond_to(:set_radiant_layout)
   end
+
+  it "should add mailer hooks" do
+    ActionMailer::Base.should respond_to(:radiant_layout)
+    ActionMailer::Base.instance_methods.include?('set_mailer_layout').should be_true
+  end
   
   it "should add helper" do
     ActionView::Base.included_modules.include?(ShareLayouts::Helper).should be_true

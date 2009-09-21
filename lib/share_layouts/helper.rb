@@ -7,16 +7,22 @@ module ShareLayouts::Helper
     page.render
   end
   
+  def radiant_mailer_layout(name = @radiant_mailer_layout)
+    radiant_layout(name)
+  end
+  
   def assign_attributes!(page, name = @radiant_layout)
     page.layout = Layout.find_by_name(name) || page.layout
     page.title = @title || @content_for_title || page.title || ''
     page.breadcrumb = @breadcrumb || @content_for_breadcrumb || page.breadcrumb || page.title
     page.breadcrumbs = @breadcrumbs || @content_for_breadcrumbs || nil
-    page.url = request.path
-    page.slug = page.url.split("/").last
-    page.published_at ||= Time.now 
-    page.request = request
-    page.response = response
+    if request
+      page.url = request.path
+      page.slug = page.url.split("/").last
+      page.published_at ||= Time.now 
+      page.request = request
+      page.response = response
+    end
   end
     
   def extract_captures
