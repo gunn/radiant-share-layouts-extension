@@ -16,12 +16,10 @@ module ShareLayouts::RadiantMailerLayouts
   end
     
   module InstanceMethods
-    def initialize_defaults_with_layout(method_name)
-      set_mailer_layout
-      initialize_defaults_without_layout(method_name)
-    end
     
-    def set_mailer_layout
+    # no callbacks in ActionMailer
+    def initialize_defaults_with_layout(method_name)
+      initialize_defaults_without_layout(method_name)
       @radiant_mailer_layout = self.class.read_inheritable_attribute 'radiant_mailer_layout_name'
       @radiant_mailer_layout = @radiant_mailer_layout.call(self) if @radiant_mailer_layout.is_a? Proc
     end
