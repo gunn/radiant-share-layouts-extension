@@ -1,1 +1,7 @@
-<%= radiant_mailer_layout %>
+<%= radiant_mailer_layout(
+  :reader => @reader,
+  :sender => @sender,
+  :subject => @subject,
+  :message => @message,
+  :group => @group
+) %>

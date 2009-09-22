@@ -3,7 +3,7 @@ module ShareLayouts::RadiantMailerLayouts
     base.extend ClassMethods
     base.class_eval {
       include InstanceMethods
-      alias_method_chain :initialize_defaults, :layout unless included_modules.include? ShareLayouts::RadiantMailerLayouts
+      alias_method_chain :initialize_defaults, :layout
     }
   end
   
@@ -21,7 +21,6 @@ module ShareLayouts::RadiantMailerLayouts
     def initialize_defaults_with_layout(method_name)
       @layout_loaded = true
       initialize_defaults_without_layout(method_name)
-      Rails.logger.warn "setting mailer layout to #{@radiant_mailer_layout}"
       @radiant_mailer_layout = self.class.read_inheritable_attribute 'radiant_mailer_layout_name'
       @radiant_mailer_layout = @radiant_mailer_layout.call(self) if @radiant_mailer_layout.is_a? Proc
     end
@@ -36,5 +35,6 @@ module ShareLayouts::RadiantMailerLayouts
       end
     end
   end
-
 end
+
+ActionMailer::Base.send :include, ShareLayouts::RadiantMailerLayouts

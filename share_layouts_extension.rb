@@ -14,9 +14,10 @@ class ShareLayoutsExtension < Radiant::Extension
   end
 
   def activate
+    require 'share_layouts/radiant_layouts'
+    require 'share_layouts/radiant_mailer_layouts'
+    
     RailsPage
-    ActionController::Base.send :include, ShareLayouts::RadiantLayouts
-    ActionMailer::Base.send :include, ShareLayouts::RadiantMailerLayouts
     ActionView::Base.send :include, ShareLayouts::Helper
   end
   

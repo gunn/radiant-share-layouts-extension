@@ -24,7 +24,11 @@ class RailsPage < Page
     content.each do |k,v|
       (part(k) || parts.build(:name => k.to_s, :filter_id => "")).content = v
     end
-  end 
+  end
+  
+  def assign_ivars(ivars)
+    ivars.each { |key, value| instance_variable_set("@#{key}", value) }
+  end
   
   alias_method "tag:old_breadcrumbs", "tag:breadcrumbs"
   tag 'breadcrumbs' do |tag|

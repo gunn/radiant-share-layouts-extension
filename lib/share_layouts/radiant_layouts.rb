@@ -17,3 +17,5 @@ module ShareLayouts::RadiantLayouts
     @radiant_layout = @radiant_layout.call(self) if @radiant_layout.is_a? Proc
   end
 end
+
+ActionController::Base.send :include, ShareLayouts::RadiantLayouts

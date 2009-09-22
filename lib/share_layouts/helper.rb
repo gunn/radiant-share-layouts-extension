@@ -7,8 +7,12 @@ module ShareLayouts::Helper
     page.render
   end
   
-  def radiant_mailer_layout(name = @radiant_mailer_layout)
-    radiant_layout(name)
+  def radiant_mailer_layout(mailer_ivars = {})
+    page = find_page
+    assign_attributes!(page, @radiant_mailer_layout)
+    page.build_parts_from_hash!(extract_captures)
+    page.assign_ivars(mailer_ivars)
+    page.render
   end
   
   def assign_attributes!(page, name = @radiant_layout)
