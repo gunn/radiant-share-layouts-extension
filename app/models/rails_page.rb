@@ -27,7 +27,7 @@ class RailsPage < Page
   end
   
   def assign_ivars(ivars)
-    ivars.each { |key, value| instance_variable_set("@#{key}", value) }
+    @mailer_vars = ivars
   end
   
   alias_method "tag:old_breadcrumbs", "tag:breadcrumbs"
