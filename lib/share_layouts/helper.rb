@@ -1,9 +1,10 @@
 module ShareLayouts::Helper
   
-  def radiant_layout(name = @radiant_layout)
+  def radiant_layout(name=@radiant_layout, options={})
     page = find_page
+    page.uncache! unless options[:cached]
     assign_attributes!(page, name)
-    page.build_parts_from_hash!(extract_captures) 
+    page.build_parts_from_hash!(extract_captures)
     page.render
   end
   
