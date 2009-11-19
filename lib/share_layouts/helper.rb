@@ -3,21 +3,23 @@ module ShareLayouts::Helper
   def radiant_layout(name=@radiant_layout, options={})
     page = find_page
     page.uncache! unless options[:cached]
-    assign_attributes!(page, name)
+    layout = Layout.find_by_name(name)
+    assign_attributes!(page, layout)
     page.build_parts_from_hash!(extract_captures)
     page.render
   end
   
   def radiant_mailer_layout(mailer_ivars = {})
     page = find_page
-    assign_attributes!(page, @radiant_mailer_layout)
+    assign_attributes!(page, mailer_ivars[:@message_layout])
     page.build_parts_from_hash!(extract_captures)
     page.assign_ivars(mailer_ivars)
     page.render
   end
   
-  def assign_attributes!(page, name = @radiant_layout)
-    page.layout = Layout.find_by_name(name) || page.layout
+  def assign_attributes!(page, layout=@radiant_layout)
+    layout = Layout.find_by_name(layout) unless layout.is_a?(Layout)
+    page.layout = layout || page.layout
     page.title = @title || @content_for_title || page.title || ''
     page.breadcrumb = @breadcrumb || @content_for_breadcrumb || page.breadcrumb || page.title
     page.breadcrumbs = @breadcrumbs || @content_for_breadcrumbs || nil
