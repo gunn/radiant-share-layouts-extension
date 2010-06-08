@@ -5,6 +5,8 @@ module ShareLayouts::ControllerExtensions
       current_site.layout_for(area)
     elsif area_layout = Radiant::Config["#{area}.layout"]
       area_layout
+    elsif named_layout = Layout.find_by_name(area.to_s)
+      named_layout.name
     elsif main_layout = Layout.find_by_name('Main')
       main_layout.name
     elsif any_layout = Layout.first

@@ -20,6 +20,7 @@ class ShareLayoutsExtension < Radiant::Extension
     RailsPage
     ActionView::Base.send :include, ShareLayouts::Helper
     ApplicationController.send :include, ShareLayouts::ControllerExtensions
+    Site.send :include, ShareLayouts::SiteExtensions if defined? Site
   end
   
   def deactivate
