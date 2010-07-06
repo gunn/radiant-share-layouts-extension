@@ -1,7 +1,7 @@
 module ShareLayouts::ControllerExtensions
 
   def layout_for(area = :public)
-    if defined? Site && current_site && current_site.respond_to?(:layout_for)
+    if (defined? Site) && current_site && current_site.respond_to?(:layout_for)
       current_site.layout_for(area)
     elsif area_layout = Radiant::Config["#{area}.layout"]
       area_layout
