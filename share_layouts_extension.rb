@@ -12,7 +12,7 @@ class ShareLayoutsExtension < Radiant::Extension
       map.connect ':controller/:action/:id'
     end
   end
-
+  
   def activate
     require 'share_layouts/radiant_layouts'
     require 'share_layouts/radiant_mailer_layouts'
@@ -20,7 +20,7 @@ class ShareLayoutsExtension < Radiant::Extension
     RailsPage
     ActionView::Base.send :include, ShareLayouts::Helper
     ApplicationController.send :include, ShareLayouts::ControllerExtensions
-    Site.send :include, ShareLayouts::SiteExtensions if defined? Site
+    Site.send :include, ShareLayouts::SiteExtensions if Site rescue nil
   end
   
   def deactivate
